@@ -1,6 +1,9 @@
 <div class="container">
   <h1>ReactNg list</h1>
-  <app-list-wrapper [items]="items$ | async"></app-list-wrapper>
+  <app-list-wrapper
+    [items]="items$ | async"
+    (toggleCompletion)="onToggleCompletion($event)"
+  ></app-list-wrapper>
 
   <form>
     <div class="form-group">

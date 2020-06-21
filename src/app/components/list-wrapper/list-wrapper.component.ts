@@ -6,6 +6,8 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -21,6 +23,7 @@ import { ReplaySubject } from 'rxjs';
 export class ListWrapperComponent implements AfterViewInit, OnChanges {
   @ViewChild('portal') portal: ElementRef;
   @Input() items: Item[];
+  @Output() toggleCompletion = new EventEmitter<string>();
 
   changeQueue = new ReplaySubject<Item[]>(1);
 
@@ -33,7 +36,18 @@ export class ListWrapperComponent implements AfterViewInit, OnChanges {
   }
 
   private render() {
-    const element = React.createElement(List, { items: this.items }, null);
+    const element = React.createElement(
+      List,
+      {
+        items: this.items,
+        toggleCompletion: this.onToggleCompletion.bind(this),
+      },
+      null
+    );
     ReactDOM.render(element, this.portal.nativeElement);
+  }
+
+  private onToggleCompletion(id: string) {
+    this.toggleCompletion.emit(id);
   }
 }
