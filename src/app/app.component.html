@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>ReactNg list</h1>
+  <app-list-wrapper [items]="items$ | async"></app-list-wrapper>
+
+  <form>
+    <div class="form-group">
+      <label for="value">Value</label>
+      <input
+        class="form-control"
+        type="text"
+        name="value"
+        id="value"
+        required
+        [(ngModel)]="newItem.value"
+      />
+    </div>
+    <div class="form-group form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="completed"
+        id="completed"
+        [(ngModel)]="newItem.completed"
+      />
+      <label for="completed" class="form-check-label">Completed</label>
+    </div>
+
+    <button type="submit" class="btn btn-success" (click)="addItem()">
+      Add item
+    </button>
+  </form>
+</div>
